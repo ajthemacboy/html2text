@@ -188,7 +188,7 @@ func (ctx *textifyTraverseContext) handleElement(node *html.Node) error {
 			return err
 		}
 		str := subCtx.buf.String()
-		if ctx.options.PrettyTables {
+		if ctx.options.BoldStars {
 			return ctx.emit("*" + str + "*")
 		} else {
 			return ctx.emit(str)
