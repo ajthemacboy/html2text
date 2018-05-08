@@ -17,6 +17,7 @@ import (
 type Options struct {
 	PrettyTables bool // Turns on pretty ASCII rendering for table elements.
 	OmitLinks    bool // Turns on omitting links
+	BoldStars    bool // Toggles asterisks around bold strings
 }
 
 // FromHTMLNode renders text output from a pre-parsed HTML document.
@@ -187,7 +188,12 @@ func (ctx *textifyTraverseContext) handleElement(node *html.Node) error {
 			return err
 		}
 		str := subCtx.buf.String()
-		return ctx.emit("*" + str + "*")
+		if ctx.options.PrettyTables {
+			return ctx.emit("*" + str + "*")
+		} else {
+			return ctx.emit(str)
+		}
+
 
 	case atom.A:
 		linkText := ""
